@@ -1,0 +1,6 @@
+"panel","n_input","n_found","missing"
+"csea_mouse",20,17,"SYNGAP1;KMT2A;SCN2A"
+"sea_adult",20,19,"KMT2A"
+"sea_development",20,19,"KMT2A"
+"tsea_tissue",20,19,"KMT2A"
+"csea_mouse_flag",10,8,"SYNGAP1;SCN2A"

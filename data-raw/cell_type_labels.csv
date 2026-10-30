@@ -1,0 +1,36 @@
+code,cell_type,region,in_plot
+RetC.Cones,Cones,Retina,TRUE
+RetR.Rods,Rods,Retina,TRUE
+Hyp,Hypothalamus,Hypothalamus,FALSE
+Hyp.Hcrt,Hypocretinergic Neurons,Hypothalamus,TRUE
+BF,Basal forebrain,Basal Forebrain,FALSE
+BF.Chat,Cholinergic Neurons,Basal Forebrain,TRUE
+BS,Brain stem,Brain stem,FALSE
+BS.chat,Cholinergic Motor Neurons,Brain stem,TRUE
+BS.Slc6a4,Serotonergic Neurons,Brain stem,TRUE
+Cb,Cerebellum,Cerebellum,FALSE
+Cb.septin4,Bergmann Glia & Oligodendrocytes,Cerebellum,TRUE
+Cb.pcp2,Purkinje Neurons,Cerebellum,TRUE
+Cb.Neurod1,Granule Neurons,Cerebellum,TRUE
+Cb.Lypd6,Stellate & Basket Neurons,Cerebellum,TRUE
+Cb.grp,Unipolar & Bergmann Glia,Cerebellum,TRUE
+Cb.Grm2,Golgi Neurons,Cerebellum,TRUE
+Cb.Aldh1L1,Astrocytes,Cerebellum,TRUE
+Cb.cnp,Oligodendrocytes,Cerebellum,TRUE
+Cpu,Striatum(Caudate and Putamen),Striatum,FALSE
+Cpu.D2,D2+ Spiny Neurons,Striatum,TRUE
+Cpu.D1,D1+ Spiny Neurons,Striatum,TRUE
+Cpu.Chat,Cholinergic Neurons,Striatum,TRUE
+Ctx,Cortex,Cortex,FALSE
+Ctx.pdgfrajd340,Oligodendrocyte Progenitors,Cortex,TRUE
+Ctx.etv1_ts88,Layer 5A & Immune Cells,Cortex,TRUE
+Ctx.pnoc,Pnoc+ Neurons,Cortex,TRUE
+Ctx.Ntsr,Layer 6 Neurons,Cortex,TRUE
+Ctx.glt25d2,Layer 5b Neurons,Cortex,TRUE
+Ctx.Aldh1L1,Astrocytes,Cortex,TRUE
+Ctx.cort,Cort+ Neurons,Cortex,TRUE
+Ctx.cnp,Oligodendrocytes,Cortex,TRUE
+Epi,Habenula (epithalamus),Habenula,FALSE
+Epi.Chat,Cholinergic Neurons,Habenula,TRUE
+Spc,Spinal cord,Spinal cord,FALSE
+Spc.Chat,Cholinergic Motor Neurons,Spinal cord,TRUE
