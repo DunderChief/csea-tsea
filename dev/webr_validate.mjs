@@ -45,7 +45,7 @@ const out = await webR.evalRString(`
     lay <- layout_nodes(p$layout, dat$columns, setNames(t05$n_specific, t05$code))
     t0 <- Sys.time()
     png(paste0("/app/", p$id, ".png"), width = 1000, height = 800)
-    bullseye_plot(r$table, lay, tree_dir = ".")
+    bullseye_plot(r$table, lay)
     dev.off()
     t_plot <- as.numeric(Sys.time() - t0, units = "secs")
     res[[p$id]] <- list(found = length(r$found), missing = r$missing, total = r$total,

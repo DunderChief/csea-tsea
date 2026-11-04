@@ -11,6 +11,10 @@
 #      app draws underneath the vector hexagons.
 #
 # Usage: Rscript dev/extract_layout.R image.png out_tree.png csea|tsea
+#
+# Historical: the app no longer uses measured centres or tree overlays. Both trees now come
+# from the lab's original node coordinates (dev/original_layouts/, dev/layouts_from_originals.R);
+# the centres this script measures were used to fit the coordinate transforms there.
 args <- commandArgs(trailingOnly = TRUE)
 img <- png::readPNG(args[[1]])
 r <- round(img[, , 1] * 255); g <- round(img[, , 2] * 255); b <- round(img[, , 3] * 255)

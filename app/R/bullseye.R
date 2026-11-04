@@ -120,7 +120,7 @@ lwd_units <- function(w) {
 # Draws on the current device: the frame (lay$frame units, origin bottom-left)
 # with the legend strip under it; the device should have the aspect ratio
 # bullseye_aspect(lay), otherwise the drawing is centred with blank margins.
-bullseye_plot <- function(tab, lay, base_size = 14, tree_dir = ".") {
+bullseye_plot <- function(tab, lay, base_size = 14) {
   nodes <- lay$nodes
   fw <- lay$frame[["width"]]; fh <- lay$frame[["height"]]
   band <- BULLSEYE_BAND * fw
@@ -130,9 +130,10 @@ bullseye_plot <- function(tab, lay, base_size = 14, tree_dir = ".") {
   graphics::plot.new()
   graphics::plot.window(xlim = c(0, fw), ylim = c(-band, fh), asp = 1)
 
-  if (!is.null(lay$tree)) {
-    f <- file.path(tree_dir, lay$tree)
-    if (file.exists(f)) graphics::rasterImage(png::readPNG(f), 0, 0, fw, fh, interpolate = TRUE)
+  if (!is.null(lay$segments)) {
+    # the tree as the original drew it: draw.tree(..., lwd = 6, col = "lightgray"), underneath the hexagons
+    graphics::segments(lay$segments$x0, lay$segments$y0, lay$segments$x1, lay$segments$y1,
+                       col = BULLSEYE_GREY, lwd = lwd_units(lay$tree_width))
   }
 
   # Rings, outermost first, one column at a time in alphabetical order as the
@@ -169,13 +170,14 @@ bullseye_plot <- function(tab, lay, base_size = 14, tree_dir = ".") {
   top <- nodes$y + r05 * sqrt(3) / 2
   bottom <- nodes$y - r05 * sqrt(3) / 2
   pad <- 0.012 * fh
+  lcex <- 0.74 * (if (is.null(lay$label_cex)) 1 else lay$label_cex)
   has <- !is.na(nodes$label)
   sub <- has & !is.na(nodes$sublabel)
   if (isTRUE(lay$label_above)) {
-    if (any(has)) graphics::text(nodes$x[has], top[has] + pad, nodes$label[has], adj = c(0.5, 0), cex = 0.74)
-    if (any(sub)) graphics::text(nodes$x[sub], bottom[sub] - pad, nodes$sublabel[sub], adj = c(0.5, 1), cex = 0.74)
+    if (any(has)) graphics::text(nodes$x[has], top[has] + pad, nodes$label[has], adj = c(0.5, 0), cex = lcex)
+    if (any(sub)) graphics::text(nodes$x[sub], bottom[sub] - pad, nodes$sublabel[sub], adj = c(0.5, 1), cex = lcex)
   } else if (any(has)) {
-    graphics::text(nodes$x[has], bottom[has] - pad, nodes$label[has], adj = c(0.5, 1), cex = 0.74)
+    graphics::text(nodes$x[has], bottom[has] - pad, nodes$label[has], adj = c(0.5, 1), cex = lcex)
   }
   if (!is.null(lay$headers)) {
     graphics::text(lay$headers$x, lay$headers$y, lay$headers$text, cex = 0.95)

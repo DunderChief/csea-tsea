@@ -25,15 +25,15 @@ app/                 the Shiny app (this directory is what Shinylive exports)
   about.md           About page: citations, data provenance, differences from the old tools
   R/stats.R          parse_gene_list(), sea_fisher(): the statistics (plain R, matches pSI::fisher.iteration)
   R/bullseye.R       bullseye plot (base graphics: nested hexagons, the original tools' colour scale and legend)
-  R/layouts.R        hexagon positions: CSEA/TSEA trees measured from the old tools' images, row and grid layouts
+  R/layouts.R        layouts: the CSEA/TSEA trees (R/layout_tables.R, generated from the lab's original node
+                     coordinates by dev/layouts_from_originals.R), row and grid layouts
   R/panels.R         the four panel definitions and explanatory text
   R/mod_analysis.R   Shiny module: gene list -> summary, table, bullseye, overlapping genes, downloads
   data/*.rds         the pSI tables (xz-compressed, ~1.5 MB in total) and the example gene lists
-  www/*_tree.png     the decorative trees of the CSEA and TSEA bullseyes (transparent overlays)
 data-raw/            prepare_data.R rebuilds app/data from the published tables (see data-raw/README.md)
 tests/               regression fixtures parsed from the old tools' output pages, and testthat tests
-dev/                 one-off scripts: parse the fixture pages, compare with the pSI package, extract layouts,
-                     render example plots, export/serve the site
+dev/                 one-off scripts: parse the fixture pages, compare with the pSI package, regenerate the layout
+                     tables from original_layouts/, render example plots, export/serve the site
                      original_bullseye_functions.R is the lab's original plotting code, kept for reference
 .github/workflows/   GitHub Actions: run the tests, export the site, publish to GitHub Pages
 ```
