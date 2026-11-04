@@ -13,9 +13,8 @@ for (nm in names(specs)) {
   res <- sea_fisher(dat$psi, genes)
   n05 <- setNames(res$table$n_specific[res$table$threshold == 0.05], res$table$code[res$table$threshold == 0.05])
   lay <- layout_nodes(specs[[nm]][2], dat$columns, n05)
-  p <- bullseye_plot(res$table, lay, tree_dir = "app")
-  w <- 1100; h <- round(w * (lay$frame[["height"]] + 90) / lay$frame[["width"]])
+  w <- 1100; h <- round(w * bullseye_aspect(lay))
   png(file.path(out, paste0(nm, "_", which, ".png")), width = w, height = h, res = 96)
-  print(p); dev.off()
+  bullseye_plot(res$table, lay, tree_dir = "app"); dev.off()
   cat(nm, ": ", w, "x", h, " min BH = ", signif(min(res$table$bh), 3), "\n", sep = "")
 }

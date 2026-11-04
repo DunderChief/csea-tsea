@@ -214,14 +214,10 @@ analysis_server <- function(id, panel, get_data, examples) {
       })
     })
 
-    plot_obj <- shiny::reactive({
+    draw_plot <- function() {
       r <- result()
       bullseye_plot(r$res$table, r$lay, base_size = 13)
-    })
-    plot_aspect <- shiny::reactive({
-      f <- result()$lay$frame
-      (f[["height"]] + 0.10 * f[["width"]]) / f[["width"]]
-    })
+    }
     # The plot is drawn once per run as a fixed-size PNG and scaled by CSS.
     # renderPlot() would redraw it at the container width times the screen's
     # pixel ratio on every resize, which under WebAssembly means rasterising
@@ -230,9 +226,9 @@ analysis_server <- function(id, panel, get_data, examples) {
     plot_file <- shiny::reactive({
       f <- tempfile(fileext = ".png")
       w <- 1200
-      grDevices::png(f, width = w, height = round(w * plot_aspect()), res = 100)
+      grDevices::png(f, width = w, height = round(w * bullseye_aspect(result()$lay)), res = 100)
       on.exit(grDevices::dev.off(), add = TRUE)
-      print(plot_obj())
+      draw_plot()
       f
     })
     output$plot <- shiny::renderImage({
@@ -257,8 +253,9 @@ analysis_server <- function(id, panel, get_data, examples) {
     output$png <- shiny::downloadHandler(
       filename = function() paste0(panel$id, "_bullseye.png"),
       content = function(file) {
-        f <- result()$lay$frame
-        ggplot2::ggsave(file, plot_obj(), width = 12, height = 12 * plot_aspect(), dpi = 150, bg = "white")
+        grDevices::png(file, width = 12, height = 12 * bullseye_aspect(result()$lay), units = "in", res = 150, bg = "white")
+        on.exit(grDevices::dev.off(), add = TRUE)
+        draw_plot()
       })
   })
 }

@@ -31,7 +31,6 @@ jobs:
             cran::shinylive
             cran::shiny
             cran::bslib
-            cran::ggplot2
             cran::png
             cran::testthat
       - name: Regression tests (fixture p-values must match)

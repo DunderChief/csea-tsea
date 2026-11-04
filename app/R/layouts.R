@@ -7,7 +7,7 @@
 # The adult-brain and developmental panels use a row and a region x period grid.
 #
 # Coordinates are pixels of the original images, origin top-left (y grows
-# downwards); layout_nodes() flips y so that ggplot draws them the right way up.
+# downwards); layout_nodes() flips y so that the plot draws them the right way up.
 
 CSEA_FRAME <- c(width = 1500, height = 1125)
 CSEA_NODES <- data.frame(

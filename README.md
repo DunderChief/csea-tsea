@@ -24,7 +24,7 @@ app/                 the Shiny app (this directory is what Shinylive exports)
   app.R              UI (bslib navbar, one tab per analysis + About) and server
   about.md           About page: citations, data provenance, differences from the old tools
   R/stats.R          parse_gene_list(), sea_fisher(): the statistics (plain R, matches pSI::fisher.iteration)
-  R/bullseye.R       bullseye plot (ggplot2 nested hexagons)
+  R/bullseye.R       bullseye plot (base graphics: nested hexagons, the original tools' colour scale and legend)
   R/layouts.R        hexagon positions: CSEA/TSEA trees measured from the old tools' images, row and grid layouts
   R/panels.R         the four panel definitions and explanatory text
   R/mod_analysis.R   Shiny module: gene list -> summary, table, bullseye, overlapping genes, downloads
@@ -34,6 +34,7 @@ data-raw/            prepare_data.R rebuilds app/data from the published tables 
 tests/               regression fixtures parsed from the old tools' output pages, and testthat tests
 dev/                 one-off scripts: parse the fixture pages, compare with the pSI package, extract layouts,
                      render example plots, export/serve the site
+                     original_bullseye_functions.R is the lab's original plotting code, kept for reference
 .github/workflows/   GitHub Actions: run the tests, export the site, publish to GitHub Pages
 ```
 
@@ -49,7 +50,7 @@ Rscript dev/compare_with_pSI.R             # cross-check against pSI::fisher.ite
 Rscript dev/export_site.R serve            # export the Shinylive site to ./site and serve it on :8008
 ```
 
-Requirements: R >= 4.2 with shiny, bslib, ggplot2, png, testthat, and shinylive (>= 0.3) for the export. The
+Requirements: R >= 4.2 with shiny, bslib, png, testthat, and shinylive (>= 0.3) for the export. The
 `archive` dependency of shinylive needs libarchive; on Ubuntu `sudo apt install libarchive-dev`, or install the
 prebuilt binary from Posit Package Manager.
 

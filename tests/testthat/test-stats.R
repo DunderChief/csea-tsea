@@ -132,9 +132,14 @@ test_that("sea_wide formats one cell per threshold", {
 test_that("table shading uses the bullseye colour scale", {
   expect_true(is.na(bullseye_colour(0.2)))
   expect_true(is.na(bullseye_colour(NA)))
-  expect_equal(bullseye_colour(0), "#8B0000")        # dark red at 0
-  expect_equal(bullseye_colour(0.1), "#FFFF00")      # yellow at the cutoff
+  expect_equal(bullseye_colour(0), "#8B0000")        # darkred at 0
+  expect_equal(bullseye_colour(1e-5), "#8B0000")     # values below 1e-5 are clamped: the same darkest red
+  expect_equal(bullseye_colour(0.1), "#EDED00")      # yellow2 (through Lab space) at the cutoff
   expect_equal(bullseye_colour(c(0.2, 0.05))[1], NA_character_)
+  # the original tools' binning: cut(c(1e-5, 0.1, p), breaks = 128) labelled with the reversed 128-colour ramp
+  ramp <- grDevices::colorRampPalette(c("yellow2", "#FF6700", "#D11500", "darkred"), bias = 0.15, space = "Lab")(128)
+  p <- c(2e-5, 0.0007, 0.03, 0.049, 0.0999)
+  expect_equal(bullseye_colour(p), as.character(cut(c(1e-5, 0.1, p), breaks = 128, labels = rev(ramp)))[-(1:2)])
   light <- grDevices::col2rgb(bullseye_colour(0, lighten = 0.55))
   expect_true(all(light > grDevices::col2rgb("#8B0000")))   # blended towards white
   expect_match(bullseye_colour(0.03, lighten = 0.55), "^#[0-9A-F]{6}$")

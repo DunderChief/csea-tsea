@@ -3,7 +3,6 @@
 
 library(shiny)
 library(bslib)
-library(ggplot2)
 
 if (!exists("sea_fisher", mode = "function")) {
   for (f in list.files("R", pattern = "\\.R$", full.names = TRUE)) source(f, local = FALSE)
