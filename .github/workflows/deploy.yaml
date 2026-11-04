@@ -36,7 +36,7 @@ jobs:
             cran::testthat
       - name: Regression tests (fixture p-values must match)
         run: Rscript tests/run_tests.R
-      - name: Export Shinylive site (adds page title, loading message and preload hints)
+      - name: Export Shinylive site (adds page title and loading message)
         run: Rscript dev/export_site.R
       - uses: actions/upload-pages-artifact@v5
         with:

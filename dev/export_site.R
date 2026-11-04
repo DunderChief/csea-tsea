@@ -27,24 +27,10 @@ shinylive::export("app", "site", quiet = FALSE,
   template_params = list(title = "CSEA / TSEA: Specific Expression Analysis",
                          include_after_body = loading_html))
 
-# webR fetches R.wasm and the base-library image first, then the package binaries one after another, then the
-# translations file. Preload hints let the browser download those later files from the first moment, in parallel
-# with the runtime (measured against GitHub Pages: parallel downloads take about half the time of sequential
-# ones; in a normal profile the worker's later request reuses the preload, even while it is still in flight).
-# The runtime files are left out: webR asks for them within a second anyway, and a private/incognito window,
-# whose memory-only cache rejects entries of more than a few MB, would download them twice.
-webr_dir <- file.path("site", "shinylive", "webr")
-candidates <- c(list.files(file.path(webr_dir, "packages"), pattern = "\\.tgz$", recursive = TRUE, full.names = TRUE),
-                file.path(webr_dir, "vfs/usr/lib/R/library/translations.data.gz"))
-candidates <- candidates[file.exists(candidates)]
-big <- candidates[file.size(candidates) > 1e6]
-big <- big[order(-file.size(big))]
-preload <- sprintf('    <link rel="preload" href="./%s" as="fetch" crossorigin="anonymous" />', sub("^site/", "", big))
-index <- file.path("site", "index.html")
-html <- readLines(index, warn = FALSE)
-i <- grep("</head>", html, fixed = TRUE)[1]
-writeLines(c(html[seq_len(i - 1)], preload, html[i:length(html)]), index)
-cat("preload hints for", length(big), "files:", paste(basename(big), collapse = ", "), "\n")
+# Not done, measured and rejected (2026-11-04): <link rel="preload"> hints for the package binaries. The browser
+# fetches everything over one HTTP/2 connection, so the hints only reorder the queue (and held back app.json,
+# which is on the critical path); first-visit time was unchanged on GitHub Pages and under a throttled network.
+# Load time is the ~45 MB download; the only lever left is fewer bytes (ggplot2 and its dependencies are 14 MB).
 
 cat("site size:", round(sum(file.size(list.files("site", recursive = TRUE, full.names = TRUE))) / 1e6), "MB\n")
 if ("serve" %in% args) httpuv::runStaticServer("site", port = 8008)
