@@ -1,0 +1,15 @@
+# build output and caches
+site/
+data-raw/cache/
+node_modules/
+# editor / R session files
+.Rproj.user/
+.Rhistory
+.RData
+*.Rproj
+.DS_Store
+# local notes (personal context, lab server and DNS details); never committed
+CSEA_TSEA_Migration_Handoff.md
+docs/
+# Claude Code project notes (kept local)
+CLAUDE.md

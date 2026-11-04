@@ -63,7 +63,6 @@ The tables are shipped with this page as compressed R data files built by `data-
 The analysis runs in your browser (R compiled to WebAssembly via [Shinylive](https://github.com/posit-dev/r-shinylive)).
 Gene lists are never transmitted. The page is served as static files from GitHub Pages.
 
-### Source code and contact
+### Source code
 
-Source, issue tracker and build instructions: [{{repo}}]({{repo}}). Rebuilt by David R. O'Brien for the
-Dougherty lab (Joseph D. Dougherty, Department of Genetics, Washington University School of Medicine).
+Source, issue tracker and build instructions: [{{repo}}]({{repo}}).

@@ -68,6 +68,18 @@ ui <- page_navbar(
         setTimeout(function () { var el = document.getElementById(anchor); if (el) el.scrollIntoView({behavior: 'smooth'}); }, 150);
         return false;
       }
+      // Shinylive runs the app inside an iframe, so a plain link would load its target in that frame
+      // (github.com and the journal sites refuse to be framed). Open every external link, and the
+      // sample PDF, in a new tab instead; in-page anchors are left alone.
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest ? e.target.closest('a[href]') : null;
+        if (!a || a.getAttribute('target')) return;
+        var href = a.getAttribute('href');
+        if (/^(https?:)?\\/\\//i.test(href) || /\\.pdf$/i.test(href)) {
+          a.setAttribute('target', '_blank');
+          a.setAttribute('rel', 'noopener');
+        }
+      });
     ")),
     if (nzchar(GOATCOUNTER_CODE)) tags$script(
       async = NA, `data-goatcounter` = sprintf("https://%s.goatcounter.com/count", GOATCOUNTER_CODE),
