@@ -1,5 +1,7 @@
 # CSEA / TSEA: Specific Expression Analysis in the browser
 
+**Live site: <https://dunderchief.github.io/csea-tsea/>**
+
 A rebuild of the Dougherty lab's **CSEA** (Cell-type Specific Expression Analysis) and **TSEA** (Tissue Specific
 Expression Analysis) web tools (formerly `doughertytools.wustl.edu/CSEAtool.html` and `TSEAtool.html`) as a
 Shiny app compiled with [Shinylive](https://github.com/posit-dev/r-shinylive) and served as static files from
@@ -57,7 +59,8 @@ prebuilt binary from Posit Package Manager.
 ## Deploy
 
 Pushing to `main` runs `.github/workflows/deploy.yaml`, which runs the tests, exports the site and publishes it
-to GitHub Pages (Settings > Pages > Source must be "GitHub Actions").
+to GitHub Pages (Settings > Pages > Source must be "GitHub Actions"). The site is then at
+<https://dunderchief.github.io/csea-tsea/>.
 
 ## Verification status
 
@@ -66,9 +69,9 @@ to GitHub Pages (Settings > Pages > Source must be "GitHub Actions").
 - The CSEA and both SEA panels reproduce the saved output pages of the old CGI tools to the three decimals they
   print, including the lists of overlapping genes, for both settings of the Human/Mouse selector (a human list
   against the mouse table uses pSI's homolog-restricted background of 13,421 genes, the value the old tool used).
-- The old TSEA page differs by an off-by-one in its specific-gene counts (see `CLAUDE.md`); the tests assert
-  both that our values match the published table and that adding one to each count reproduces the old page
-  exactly.
+- The old TSEA page differs by an off-by-one in its specific-gene counts (see `tests/testthat/test-stats.R`);
+  the tests assert both that our values match the published table and that adding one to each count
+  reproduces the old page exactly.
 - `dev/webr_validate.mjs` runs the data loading, statistics and plotting under webR (R compiled to WebAssembly)
   in Node and reproduces the native numbers; per panel the data load in under 0.1 s, the tests take 0.1-0.3 s and
   a bullseye renders in under a second.
